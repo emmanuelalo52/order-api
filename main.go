@@ -2,13 +2,16 @@ package main
 
 import (
 	"fmt"
+	"github.com/go-chi/chi/v5"
 	"net/http"
 )
 
 func main() {
+	router := chi.NewRouter()
+	router.Get("/test", basicHandler)
 	server := &http.Server{
 		Addr:    ":8080",
-		Handler: http.HandlerFunc(basicHandler),
+		Handler: router,
 	}
 	err := server.ListenAndServe()
 	if err != nil {
@@ -18,11 +21,12 @@ func main() {
 
 // Create a handler for your CRUD
 func basicHandler(w http.ResponseWriter, r *http.Request) {
-	switch r.Method {
-	case http.MethodGet:
-		
-	case http.MethodPost:
-	case http.MethodPatch:
-	case http.MethodDelete:
-	}
+	w.Write(([]byte("Testing")))
+	// switch r.Method {
+	// case http.MethodGet:
+
+	// case http.MethodPost:
+	// case http.MethodPatch:
+	// case http.MethodDelete:
+	// }
 }
